@@ -1,11 +1,12 @@
 ---
 title: "Which population group experiences the most frequent transitions between shelters in 2018 and 2023? An analysis on Toronto’s Shelter System Flow"
 author: "Catherine Punnoose"
-thanks: "Code and data are available at: LINK."
+thanks: "Code and data are available at: https://github.com/catherinee1216/City-of-Toronto-Shelter-System-Flow-Analysis.git"
 date: today
 date-format: long
 abstract: "As Toronto faces an extreme homelessness crisis, it is important to understand how much homelessness has increased in the city in 2023 compared to 2018. The paper uses data collected by OpenDataToronto to discover what population groups transition between shelters the most in 2018 and 2023. The paper concludes that more individuals were using an overnight service in 2023 compared to 2018."
 format: pdf
+toc: true
 number-sections: true
 bibliography: references.bib
 ---
@@ -39,35 +40,35 @@ data_analysis <- clean_names(raw_data_collect)
 
 # Introduction
 
-Toronto is under a major homelessness crisis. The city currently holds the highest number of homeless people in the country where between 25,000 and 35,000 people experience homelessness [CITE 2]. As a response to this issue, the city council has funded multiple shelters around the city. Nearly 10,700 people have been sheltered by the city since October 2023 [CITE2]. 
+Toronto is under a major homelessness crisis. The city currently holds the highest number of homeless people in the country where between 25,000 and 35,000 people experience homelessness [@TorontoObserver]. As a response to this issue, the city council has funded multiple shelters around the city. Nearly 10,700 people have been sheltered by the city since October 2023 [@TorontoObserver]. 
 
-To better understand the homelessness crisis and the number of people currently moving in and out of shelters, it is important to analyze the shelter system flow in Toronto. Specifically, my report compares data from 2018 and 2023 to see if there is a significant difference on the number of individuals who are actively homeless, became inactive, moved to housing and returned from housing. The report will analyze the data separated into eight groups: All populations, Chronic, Families, Youth, Single Adult, Refugees, Non-refugees, and Indigenous. Further discussion on different population groups are discussed in the Results [CROSS REF] section of the paper. 
+To better understand the homelessness crisis and the number of people currently moving in and out of shelters, it is important to analyze the shelter system flow in Toronto. Specifically, my report compares data from 2018 and 2023 to see if there is a significant difference on the number of individuals who are actively homeless, became inactive, moved to housing and returned from housing. The report will analyze the data separated into eight groups: All populations, Chronic, Families, Youth, Single Adult, Refugees, Non-refugees, and Indigenous. Further discussion on different population groups are discussed in the Results section of the paper. 
 
-The shelter system flow data collected by Open Data Toronto [CITE OPEN DATA] gives an insight onto those who are experiencing homelessness and the status of Toronto's system [CITE OPEN DATA]. It provides information on people who enter and leave the shelter system every month. To gather data, the Shelter Management Information System (SMIS) is used. SMIS is used by overnight services such as emergency shelters, respites, hotel/motel programs, and warming centers [CITE OPEN DATA]. The data section consists of different types of data sources used as well as its cleaning process. The findings and trends are discussed in the Results section. Additional insights, measurement errors, and limitations are discussed in the Discussion section. The paper then wraps up findings and provides a summary in the Conclusion section. 
-
-
-# Data {#sec-data}
-
-This paper uses data collected by the Open Data Toronto Portal through the library opendatatoronto [CITE]. It uses the dataset “Toronto Shelter System Flow” [CITE]. The collected data was then cleaned using the statistical programming language R [CITE R]. **CITE ALL LIBRARIES USED**
+The shelter system flow data collected by Open Data Toronto [@OpenDataTO] gives an insight onto those who are experiencing homelessness and the status of Toronto's system [@OpenDataTO]. It provides information on people who enter and leave the shelter system every month. To gather data, the Shelter Management Information System (SMIS) is used. SMIS is used by overnight services such as emergency shelters, respites, hotel/motel programs, and warming centers [@OpenDataTO]. The data section consists of different types of data sources used as well as its cleaning process. The findings and trends are discussed in the Results section. Additional insights, measurement errors, and limitations are discussed in the Discussion section. The paper then wraps up findings and provides a summary in the Conclusion section. 
 
 
-## 2.1 Actively and Inactively Homeless
+# Data
 
-The dataset provided by Open Data Toronto [CITE OPEN DATA] shows data each month from 2018 to 2023. The dataset provides data for all eight categories including the number of individuals who are actively homeless and those who are currently not actively homeless. The data provided under “actively_homeles” are defined as individuals who have used the shelter system at least once in the past three months and did not move to permanent housing [CITE OPEN DATA]. The data provided under “became_inactive” are defined as individuals who have previously used the shelter system but have not used it within the past three months [CITE OPEN DATA].  The data was last refreshed on January 14, 2024 and captured on the paper on January 23, 2024. 
-
-As the paper is an analysis between data collected in 2018 and 2023, only data within these dates were filtered. The data was then cleaned and displayed as a graph (See Figure <num>).  
+This paper uses data collected by the Open Data Toronto Portal through the library opendatatoronto [@OpenDataTO]. It uses the dataset “Toronto Shelter System Flow” [@OpenDataTO]. The collected data was then cleaned using the statistical programming language R [@citeR]. Libraries such as Tidy Verse[@tidyVerse], TinyTex[@tinyTex], Janitor [@janitor], readr[@readr], dplyr [@dplyr], and ggplot2[@ggplot2] were also used in the report.
 
 
-## 2.2 Moved to Housing and Returned from Housing Individuals 
+## Actively and Inactively Homeless
 
-The data provided shows data collected in 2018 as well as 2023. The data provides information on the number of people who moved to housing and those who returned from housing. The data provided under “moved_to_housing” is defined as people who previously used shelter systems that have now moved to permanent housing. This data is sometimes referred to as “Moved to Permanent Housing” in some datasets. The data provided under “returned_from_housing” is defined as people who we previously identified as “Moved to Permanent Housing” who returned to an overnight service within the reporting month [CITE OPEN DATA]. The data was last refreshed on January 14, 2024 and captured on the paper on January 23, 2024. As the paper studies the comparison between those who used shelters in 2018 and 2023, the data from these years were collected. The data was cleaned and displayed as a stacked graph, which can be seen in Results. 
+The dataset provided by Open Data Toronto [@OpenDataTO] shows data each month from 2018 to 2023. The dataset provides data for all eight categories including the number of individuals who are actively homeless and those who are currently not actively homeless. The data provided under “actively_homeles” are defined as individuals who have used the shelter system at least once in the past three months and did not move to permanent housing [@OpenDataTO]. The data provided under “became_inactive” are defined as individuals who have previously used the shelter system but have not used it within the past three months [@OpenDataTO].  The data was last refreshed on January 14, 2024 and captured on the paper on January 23, 2024. 
+
+As the paper is an analysis between data collected in 2018 and 2023, only data within these dates were filtered. The data was then cleaned and displayed as a graph (@fig-HomelessStatus).  
+
+
+## Moved to Housing and Returned from Housing Individuals 
+
+The data provided shows data collected in 2018 as well as 2023. The data provides information on the number of people who moved to housing and those who returned from housing. The data provided under “moved_to_housing” is defined as people who previously used shelter systems that have now moved to permanent housing. This data is sometimes referred to as “Moved to Permanent Housing” in some datasets. The data provided under “returned_from_housing” is defined as people who we previously identified as “Moved to Permanent Housing” who returned to an overnight service within the reporting month [@OpenDataTO]. The data was last refreshed on January 14, 2024 and captured on the paper on January 23, 2024. As the paper studies the comparison between those who used shelters in 2018 and 2023, the data from these years were collected. The data was cleaned and displayed as a stacked graph, which can be seen in Results. 
 
 
 # Results 
 
 ## Comparisons in Between Homeless Status in 2018 and 2023 
 
-The dataset covers data of those who are actively homeless and became inactive. This data is distributed according to the population group the individual belongs in. To understand the total number, I analyzed the data under “All Populations” as this variable refers to the total number of individuals from all demographics. When looking at the difference between the number of individuals who were actively homeless, it is clear that there is an increase of actively homeless individuals in 2023 compared to 2018. However, the result is the opposite when looking at the data for individuals who became inactive (fig-HomelessStatus). More people became inactive in 2018 compared to 2023. When looking at the data across different population groups, omitting “All Populations”, the data shows that there is a significant increase in 2023 on the number of actively homeless by those who are “Chronic”, “Non-Refugees”, and “Single Adult” (fig-HomelessStatus). However, the data shown in Figure <num> shows that there is some increase in 2018 compared to 2023 between all groups other than “Chronic” in terms of individuals who became inactive. Overall, the results show that there is an increased number of those who are actively homeless in 2023. The population group with the highest frequency in 2023 was “Single Adult”. Since there is a greater number of individuals who are actively homeless and a lower number of those who became inactive in 2023, I infer that the reason for this can be the high cost of living today. 
+The dataset covers data of those who are actively homeless and became inactive. This data is distributed according to the population group the individual belongs in. To understand the total number, I analyzed the data under “All Populations” as this variable refers to the total number of individuals from all demographics. When looking at the difference between the number of individuals who were actively homeless, it is clear that there is an increase of actively homeless individuals in 2023 compared to 2018. However, the result is the opposite when looking at the data for individuals who became inactive (@fig-HomelessStatus-2). More people became inactive in 2018 compared to 2023. When looking at the data across different population groups, omitting “All Populations”, the data shows that there is a significant increase in 2023 on the number of actively homeless by those who are “Chronic”, “Non-Refugees”, and “Single Adult” (@fig-HomelessStatus-1). However, the data shown in @fig-HomelessStatus-1 shows that there is some increase in 2018 compared to 2023 between all groups other than “Chronic” in terms of individuals who became inactive. Overall, the results show that there is an increased number of those who are actively homeless in 2023. The population group with the highest frequency in 2023 was “Single Adult”. Since there is a greater number of individuals who are actively homeless and a lower number of those who became inactive in 2023, I infer that the reason for this can be the high cost of living today. 
 
 
 ```{r}
@@ -144,9 +145,10 @@ ggplot(combined_data, aes(x = population_group, y = became_inactive, fill = fact
 
 ```
 \newpage
+
 ## Comparisons Between Moved to Housing or Returned from Housing in 2018 and 2023
 
-I studied the data collected by those who have moved and returned from housing in 2018 and 2023. When looking at the individuals who moved from housing (Figure <num>), it is clear that more people overall  have moved into housing in 2018 compared to 2023. “Families” and “Refugees” groups have the highest number of people who moved into housing in 2018. This value however, has decreased significantly when looking at the data in 2023. “Chronic”, “Non-Refugees”, “Single Adult”, and “Youth” however have a higher number of individuals who moved to housing in 2023 compared to 2018 (See Figure <num>). 
+I studied the data collected by those who have moved and returned from housing in 2018 and 2023. When looking at the individuals who moved from housing (@fig-MovedOrReturnedFromHousing-1), it is clear that more people overall  have moved into housing in 2018 compared to 2023. “Families” and “Refugees” groups have the highest number of people who moved into housing in 2018. This value however, has decreased significantly when looking at the data in 2023. “Chronic”, “Non-Refugees”, “Single Adult”, and “Youth” however have a higher number of individuals who moved to housing in 2023 compared to 2018 (@fig-MovedOrReturnedFromHousing-1). 
 
 
 When looking at the data of those who have returned from housing, the total values are the same in both 2018 and 2023. Specifically, both “Chronic” and “Families” groups have the same value. “Non-Refugees” and “Youth” groups have a decreased amount in 2023 compared to 2018 while groups “Refugees” and “Single Adult” have seen an increase in 2023. The “Indigenous” group will not be analyzed as there is no data from 2018 to compare to. Overall, the data shows that more people have moved to housing in 2018 compared to 2023. In addition, the number of people who returned from housing was the same. 
@@ -227,7 +229,7 @@ ggplot(combined_data, aes(x = population_group, y = returned_from_housing, fill 
 
 This paper shows the number of people per population group that have filtered through shelters in 2018 and 2023. The comparison shows if there is an increase in a particular population group and the state of the shelter system. Overall, the data shows that there are more individuals who are actively homeless in 2023 compared to 2018. This could be due to rising house prices in Toronto. The report also shows that more people have moved to housing in 2018 compared to 2023.  
 
-While the data provides much insight onto the shelter system flow in Toronto, there were multiple limitations on the project. One of the primary limitations was not collecting data of individuals who do not use overnight services. The dataset has collected data only from overnight services and does not include those who exclusively sleep outside or use either homelessness services [CITE OPEN DATA]. This poses a major loss of data as it does not provide an accurate result of individuals, specifically from different population groups, who are currently using shelters. Another limitation are shelter services that do not use SMIS (Shelter Management Information System) but are also funded by the government. These types of shelters are unfortunately not included in the dataset. The Indigenous population group is another limitation in terms of data. Collecting data on those who identify a Indigenous came only into effect by October 2020. The data was then stabilized by January 2021. However, due to this change, data about the Indigenous population group was only collected after January 2021. This is a challenge when comparing data from 2018 for the Indigenous group as there is no data view. 
+While the data provides much insight onto the shelter system flow in Toronto, there were multiple limitations on the project. One of the primary limitations was not collecting data of individuals who do not use overnight services. The dataset has collected data only from overnight services and does not include those who exclusively sleep outside or use either homelessness services [@OpenDataTO]. This poses a major loss of data as it does not provide an accurate result of individuals, specifically from different population groups, who are currently using shelters. Another limitation are shelter services that do not use SMIS (Shelter Management Information System) but are also funded by the government. These types of shelters are unfortunately not included in the dataset. The Indigenous population group is another limitation in terms of data. Collecting data on those who identify a Indigenous came only into effect by October 2020. The data was then stabilized by January 2021. However, due to this change, data about the Indigenous population group was only collected after January 2021. This is a challenge when comparing data from 2018 for the Indigenous group as there is no data view. 
 
 With the dataset published monthly, specifically on the 15th of each month, the dataset for the previous month will be updated along with the dataset for the new month. The main reason for this is for accuracy. To ensure that the data provided in the last two weeks is as accurate as possible, the dataset of the previous month is also updated. 
 
@@ -241,3 +243,5 @@ The discoveries found in the report provide an insight into the homelessness cri
 
 
 # References
+
+
