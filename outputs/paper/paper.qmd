@@ -1,221 +1,243 @@
 ---
-title: "My title"
-subtitle: "My subtitle if needed"
-author: 
-  - First author
-  - Another author
+title: "Which population group experiences the most frequent transitions between shelters in 2018 and 2023? An analysis on Toronto’s Shelter System Flow"
+author: "Catherine Punnoose"
 thanks: "Code and data are available at: LINK."
 date: today
 date-format: long
-abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
+abstract: "As Toronto faces an extreme homelessness crisis, it is important to understand how much homelessness has increased in the city in 2023 compared to 2018. The paper uses data collected by OpenDataToronto to discover what population groups transition between shelters the most in 2018 and 2023. The paper concludes that more individuals were using an overnight service in 2023 compared to 2018."
 format: pdf
 number-sections: true
 bibliography: references.bib
 ---
 
+
 ```{r}
-#| include: false
+#| echo: false
 #| warning: false
 #| message: false
 
-library(tidyverse)
-library(palmerpenguins)
-```
 
+library(tidyverse)
+library(tinytex)
+library(opendatatoronto)
+library(janitor)
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(rmarkdown)
+
+#Obtaining the required packages and data sets needed to run analysis
+
+shelter_system_flow_packages <- search_packages("Toronto Shelter System Flow")
+shelter_system_flow_resources <- shelter_system_flow_packages  %>% list_package_resources()
+
+raw_data_collect <- shelter_system_flow_resources[4,] %>% get_resource()
+
+#Cleaning up the data
+data_analysis <- clean_names(raw_data_collect)
+```
 
 # Introduction
 
-You can and should cross-reference sections and sub-sections. 
+Toronto is under a major homelessness crisis. The city currently holds the highest number of homeless people in the country where between 25,000 and 35,000 people experience homelessness [CITE 2]. As a response to this issue, the city council has funded multiple shelters around the city. Nearly 10,700 people have been sheltered by the city since October 2023 [CITE2]. 
 
-The remainder of this paper is structured as follows. @sec-data....
+To better understand the homelessness crisis and the number of people currently moving in and out of shelters, it is important to analyze the shelter system flow in Toronto. Specifically, my report compares data from 2018 and 2023 to see if there is a significant difference on the number of individuals who are actively homeless, became inactive, moved to housing and returned from housing. The report will analyze the data separated into eight groups: All populations, Chronic, Families, Youth, Single Adult, Refugees, Non-refugees, and Indigenous. Further discussion on different population groups are discussed in the Results [CROSS REF] section of the paper. 
 
+The shelter system flow data collected by Open Data Toronto [CITE OPEN DATA] gives an insight onto those who are experiencing homelessness and the status of Toronto's system [CITE OPEN DATA]. It provides information on people who enter and leave the shelter system every month. To gather data, the Shelter Management Information System (SMIS) is used. SMIS is used by overnight services such as emergency shelters, respites, hotel/motel programs, and warming centers [CITE OPEN DATA]. The data section consists of different types of data sources used as well as its cleaning process. The findings and trends are discussed in the Results section. Additional insights, measurement errors, and limitations are discussed in the Discussion section. The paper then wraps up findings and provides a summary in the Conclusion section. 
 
 
 # Data {#sec-data}
 
-Some of our data is of penguins (@fig-bills), from @palmerpenguins.
+This paper uses data collected by the Open Data Toronto Portal through the library opendatatoronto [CITE]. It uses the dataset “Toronto Shelter System Flow” [CITE]. The collected data was then cleaned using the statistical programming language R [CITE R]. **CITE ALL LIBRARIES USED**
+
+
+## 2.1 Actively and Inactively Homeless
+
+The dataset provided by Open Data Toronto [CITE OPEN DATA] shows data each month from 2018 to 2023. The dataset provides data for all eight categories including the number of individuals who are actively homeless and those who are currently not actively homeless. The data provided under “actively_homeles” are defined as individuals who have used the shelter system at least once in the past three months and did not move to permanent housing [CITE OPEN DATA]. The data provided under “became_inactive” are defined as individuals who have previously used the shelter system but have not used it within the past three months [CITE OPEN DATA].  The data was last refreshed on January 14, 2024 and captured on the paper on January 23, 2024. 
+
+As the paper is an analysis between data collected in 2018 and 2023, only data within these dates were filtered. The data was then cleaned and displayed as a graph (See Figure <num>).  
+
+
+## 2.2 Moved to Housing and Returned from Housing Individuals 
+
+The data provided shows data collected in 2018 as well as 2023. The data provides information on the number of people who moved to housing and those who returned from housing. The data provided under “moved_to_housing” is defined as people who previously used shelter systems that have now moved to permanent housing. This data is sometimes referred to as “Moved to Permanent Housing” in some datasets. The data provided under “returned_from_housing” is defined as people who we previously identified as “Moved to Permanent Housing” who returned to an overnight service within the reporting month [CITE OPEN DATA]. The data was last refreshed on January 14, 2024 and captured on the paper on January 23, 2024. As the paper studies the comparison between those who used shelters in 2018 and 2023, the data from these years were collected. The data was cleaned and displayed as a stacked graph, which can be seen in Results. 
+
+
+# Results 
+
+## Comparisons in Between Homeless Status in 2018 and 2023 
+
+The dataset covers data of those who are actively homeless and became inactive. This data is distributed according to the population group the individual belongs in. To understand the total number, I analyzed the data under “All Populations” as this variable refers to the total number of individuals from all demographics. When looking at the difference between the number of individuals who were actively homeless, it is clear that there is an increase of actively homeless individuals in 2023 compared to 2018. However, the result is the opposite when looking at the data for individuals who became inactive (fig-HomelessStatus). More people became inactive in 2018 compared to 2023. When looking at the data across different population groups, omitting “All Populations”, the data shows that there is a significant increase in 2023 on the number of actively homeless by those who are “Chronic”, “Non-Refugees”, and “Single Adult” (fig-HomelessStatus). However, the data shown in Figure <num> shows that there is some increase in 2018 compared to 2023 between all groups other than “Chronic” in terms of individuals who became inactive. Overall, the results show that there is an increased number of those who are actively homeless in 2023. The population group with the highest frequency in 2023 was “Single Adult”. Since there is a greater number of individuals who are actively homeless and a lower number of those who became inactive in 2023, I infer that the reason for this can be the high cost of living today. 
+
 
 ```{r}
-#| label: fig-bills
-#| fig-cap: Bills of penguins
-#| echo: false
-
-ggplot(penguins, aes(x = island, fill = species)) +
-  geom_bar(alpha = 0.8) +
-  scale_fill_manual(values = c("darkorange","purple","cyan4"),
-                    guide = "none") +
-  theme_minimal() +
-  facet_wrap(~species, ncol = 1) +
-  coord_flip()
-```
-
-Talk more about it.
-
-And also planes (@fig-planes). (You can change the height and width, but don't worry about doing that until you have finished every other aspect of the paper - Quarto will try to make it look nice and the defaults usually work well once you have enough text.)
-
-```{r}
-#| label: fig-planes
-#| fig-cap: Relationship between wing length and width
+#| label: fig-HomelessStatus
+#| fig-cap: Individuals Became Active and Inactive Homeless in 2018 and 2023
+#| fig-subcap: [Actively Homeless in 2018 and 2023, Inactivley Homless in 2018 and 2023]
+#| layout-ncol: 1
 #| echo: false
 #| warning: false
 #| message: false
+# Graph that show Actively and Inactively Homeless
 
-analysis_data <- read_csv(here::here("outputs/data/analysis_data.csv"))
+# Load required packages
+library(ggplot2)
 
-analysis_data |> 
-  ggplot(aes(x = width, y = length)) +
-  geom_point(alpha = 0.8) +
-  theme_minimal() +
-  labs(x = "Wing width (mm)",
-       y = "Wing length (mm)")
+# Read CSV file into a data frame
+data_analysis <- read_csv(here::here("outputs/data/toronto-shelter-system-flow.csv"))
+
+# Code Copied from Chat GPT 
+
+
+# Convert the date column to a Date object (if not already)
+data_analysis$date <- as.Date(paste0("01-", data_analysis$`date(mmm-yy)`), format = "%d-%b-%y")
+
+# Filter data from 2018
+data_2018 <- data_analysis %>%
+  filter(year(date) == 2018)
+
+# Filter data from 2023
+data_2023 <- data_analysis %>%
+  filter(year(date) == 2023)
+
+# Filter for actively_homeless in 2018
+actively_homeless_data <- data_2018 %>%
+  filter(actively_homeless > 0)  # Assuming actively_homeless is numeric
+
+# Filter for actively_homeless in 2023
+actively_homeless_data_23 <- data_2023 %>%
+  filter(actively_homeless > 0)  # Assuming actively_homeless is numeric
+
+# Filter for became_inactive in 2018
+became_inactive_data <- data_2018 %>%
+  filter(became_inactive > 0)  # Assuming became_inactive is numeric
+
+# Filter for became_inactive in 2023
+became_inactive_data_23 <- data_2023 %>%
+  filter(became_inactive > 0)  # Assuming became_inactive is numeric
+
+# Create a new column for the year to distinguish the data
+actively_homeless_data$year <- 2018
+actively_homeless_data_23$year <- 2023
+
+# Create a new column for the year to distinguish the data
+became_inactive_data$year <- 2018
+became_inactive_data_23$year <- 2023
+
+# Combine the data
+combined_data <- rbind(actively_homeless_data, actively_homeless_data_23)
+
+# Combine the data
+combined_data <- rbind(became_inactive_data, became_inactive_data_23)
+
+# Create a stacked bar graph for Actively Homeless in both years
+ggplot(combined_data, aes(x = population_group, y = actively_homeless, fill = factor(year))) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(x = "Population group", y = "Count of Actively Homeless", fill = "Year") +
+  theme_minimal()
+
+# Create a stacked bar graph for Became Inactive Homeless in both years
+ggplot(combined_data, aes(x = population_group, y = became_inactive, fill = factor(year))) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(x = "Population group", y = "Count of Inactively Homeless", fill = "Year") +
+  theme_minimal()
+
 ```
-
-Talk way more about it. 
-
-
-
-# Model
-
-The goal of our modelling strategy is twofold. Firstly,...
-
-Here we briefly describe the Bayesian analysis model used to investigate... Background details and diagnostics are included in [Appendix -@sec-model-details].
-
-## Model set-up
-
-Define $y_i$ as the number of seconds that the plane remained aloft. Then $\beta_i$ is the wing width and $\gamma_i$ is the wing length, both measured in millimeters.  
-
-\begin{align} 
-y_i|\mu_i, \sigma &\sim \mbox{Normal}(\mu_i, \sigma) \\
-\mu_i &= \alpha + \beta_i + \gamma_i\\
-\alpha &\sim \mbox{Normal}(0, 2.5) \\
-\beta &\sim \mbox{Normal}(0, 2.5) \\
-\gamma &\sim \mbox{Normal}(0, 2.5) \\
-\sigma &\sim \mbox{Exponential}(1)
-\end{align}
-
-We run the model in R [@citeR] using the `rstanarm` package of @rstanarm. We use the default priors from `rstanarm`.
-
-
-### Model justification
-
-We expect a positive relationship between the size of the wings and time spent aloft. In particular...
-
-We can use maths by including latex between dollar signs, for instance $\theta$.
-
-
-# Results
-
-Our results are summarized in @tbl-modelresults.
-
-```{r}
-#| echo: false
-#| eval: true
-#| warning: false
-#| message: false
-
-library(rstanarm)
-
-first_model <-
-  readRDS(file = here::here("outputs/models/first_model.rds"))
-```
-
-```{r}
-#| echo: false
-#| eval: true
-#| label: tbl-modelresults
-#| tbl-cap: "Explanatory models of flight time based on wing width and wing length"
-#| warning: false
-
-modelsummary::modelsummary(
-  list(
-    "First model" = first_model
-  ),
-  statistic = "mad",
-  fmt = 2
-)
-```
-
-
-
-
-# Discussion
-
-## First discussion point {#sec-first-point}
-
-If my paper were 10 pages, then should be be at least 2.5 pages. The discussion is a chance to show off what you know and what you learnt from all this. 
-
-## Second discussion point
-
-## Third discussion point
-
-## Weaknesses and next steps
-
-Weaknesses and next steps should also be included.
-
 \newpage
+## Comparisons Between Moved to Housing or Returned from Housing in 2018 and 2023
 
-\appendix
-
-# Appendix {-}
+I studied the data collected by those who have moved and returned from housing in 2018 and 2023. When looking at the individuals who moved from housing (Figure <num>), it is clear that more people overall  have moved into housing in 2018 compared to 2023. “Families” and “Refugees” groups have the highest number of people who moved into housing in 2018. This value however, has decreased significantly when looking at the data in 2023. “Chronic”, “Non-Refugees”, “Single Adult”, and “Youth” however have a higher number of individuals who moved to housing in 2023 compared to 2018 (See Figure <num>). 
 
 
-# Additional data details
+When looking at the data of those who have returned from housing, the total values are the same in both 2018 and 2023. Specifically, both “Chronic” and “Families” groups have the same value. “Non-Refugees” and “Youth” groups have a decreased amount in 2023 compared to 2018 while groups “Refugees” and “Single Adult” have seen an increase in 2023. The “Indigenous” group will not be analyzed as there is no data from 2018 to compare to. Overall, the data shows that more people have moved to housing in 2018 compared to 2023. In addition, the number of people who returned from housing was the same. 
 
-# Model details {#sec-model-details}
-
-## Posterior predictive check
-
-In @fig-ppcheckandposteriorvsprior-1 we implement a posterior predictive check. This shows...
-
-In @fig-ppcheckandposteriorvsprior-2 we compare the posterior with the prior. This shows... 
 
 ```{r}
-#| eval: true
+#| label: fig-MovedOrReturnedFromHousing
+#| fig-cap: Individuals that have Moved and Returned from Housing in 2018 and 2023
+#| fig-subcap: [Moved to Housing in 2018 and 2023, Returned from Housing in 2018 and 2023]
+#| layout-ncol: 1
 #| echo: false
-#| message: false
 #| warning: false
-#| label: fig-ppcheckandposteriorvsprior
-#| layout-ncol: 2
-#| fig-cap: "Examining how the model fits, and is affected by, the data"
-#| fig-subcap: ["Posterior prediction check", "Comparing the posterior with the prior"]
+#| message: false
 
-pp_check(first_model) +
-  theme_classic() +
-  theme(legend.position = "bottom")
+# Read CSV file into a data frame
+data_analysis <- read_csv(here::here("outputs/data/toronto-shelter-system-flow.csv"))
 
-posterior_vs_prior(first_model) +
-  theme_minimal() +
-  scale_color_brewer(palette = "Set1") +
-  theme(legend.position = "bottom") +
-  coord_flip()
+# Code Copied from Chat GPT 
+
+# Convert the date column to a Date object (if not already)
+data_analysis$date <- as.Date(paste0("01-", data_analysis$`date(mmm-yy)`), format = "%d-%b-%y")
+
+# Filter data from 2018
+data_2018 <- data_analysis %>%
+  filter(year(date) == 2018)
+
+# Filter data from 2023
+data_2023 <- data_analysis %>%
+  filter(year(date) == 2023)
+
+# Filter for moved_to_housing in 2018
+moved_to_housing_data <- data_2018 %>%
+  filter(moved_to_housing > 0)  # Assuming actively_homeless is numeric
+
+# Filter for moved_to_housing in 2023
+moved_to_housing_data_23 <- data_2023 %>%
+  filter(moved_to_housing > 0)  # Assuming actively_homeless is numeric
+
+# Filter for returned_from_housing in 2018
+returned_from_housing_data <- data_2018 %>%
+  filter(returned_from_housing > 0)  
+
+# Filter for returned_from_housing in 2023
+returned_from_housing_data_23 <- data_2023 %>%
+  filter(returned_from_housing > 0)  
+
+# Create a new column for the year to distinguish the data
+moved_to_housing_data$year <- 2018
+moved_to_housing_data_23$year <- 2023
+
+# Create a new column for the year to distinguish the data
+returned_from_housing_data$year <- 2018
+returned_from_housing_data_23$year <- 2023
+
+# Combine the data
+combined_data <- rbind(moved_to_housing_data, moved_to_housing_data_23)
+
+# Combine the data
+combined_data <- rbind(returned_from_housing_data, returned_from_housing_data_23)
+
+# Create a stacked bar graph for Actively Homeless in both years
+ggplot(combined_data, aes(x = population_group, y = moved_to_housing, fill = factor(year))) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(x = "Population group", y = "Count of Moved to Housing", fill = "Year") +
+  theme_minimal()
+
+# Create a stacked bar graph for Became Inactive Homeless in both years
+ggplot(combined_data, aes(x = population_group, y = returned_from_housing, fill = factor(year))) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(x = "Population group", y = "Count of Returned from Housing", fill = "Year") +
+  theme_minimal()
+
 ```
 
-## Diagnostics
+\newpage 
 
-@fig-stanareyouokay-1 is a trace plot. It shows... This suggests...
+# Discussion 
 
-@fig-stanareyouokay-2 is a Rhat plot. It shows... This suggests...
+This paper shows the number of people per population group that have filtered through shelters in 2018 and 2023. The comparison shows if there is an increase in a particular population group and the state of the shelter system. Overall, the data shows that there are more individuals who are actively homeless in 2023 compared to 2018. This could be due to rising house prices in Toronto. The report also shows that more people have moved to housing in 2018 compared to 2023.  
 
-```{r}
-#| echo: false
-#| eval: true
-#| message: false
-#| warning: false
-#| label: fig-stanareyouokay
-#| fig-cap: "Checking the convergence of the MCMC algorithm"
-#| fig-subcap: ["Trace plot", "Rhat plot"]
-#| layout-ncol: 2
+While the data provides much insight onto the shelter system flow in Toronto, there were multiple limitations on the project. One of the primary limitations was not collecting data of individuals who do not use overnight services. The dataset has collected data only from overnight services and does not include those who exclusively sleep outside or use either homelessness services [CITE OPEN DATA]. This poses a major loss of data as it does not provide an accurate result of individuals, specifically from different population groups, who are currently using shelters. Another limitation are shelter services that do not use SMIS (Shelter Management Information System) but are also funded by the government. These types of shelters are unfortunately not included in the dataset. The Indigenous population group is another limitation in terms of data. Collecting data on those who identify a Indigenous came only into effect by October 2020. The data was then stabilized by January 2021. However, due to this change, data about the Indigenous population group was only collected after January 2021. This is a challenge when comparing data from 2018 for the Indigenous group as there is no data view. 
 
-plot(first_model, "trace")
+With the dataset published monthly, specifically on the 15th of each month, the dataset for the previous month will be updated along with the dataset for the new month. The main reason for this is for accuracy. To ensure that the data provided in the last two weeks is as accurate as possible, the dataset of the previous month is also updated. 
 
-plot(first_model, "rhat")
-```
 
+# Conclusion 
+
+The discoveries found in the report provide an insight into the homelessness crisis today. It provides a platform to brainstorm ideas that could improve the shelter system in Toronto. The findings show that there are more individuals actively homeless in 2023 compared to 2018. In addition, there are less individuals moving to permanent housing. Further research can be done to examine the primary causes of homelessness and how the issue can be solved in Toronto.
 
 
 \newpage
 
 
 # References
-
-
