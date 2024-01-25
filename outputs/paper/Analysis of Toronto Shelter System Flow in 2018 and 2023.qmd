@@ -4,7 +4,7 @@ author: "Catherine Punnoose"
 thanks: "Code and data are available at: https://github.com/catherinee1216/City-of-Toronto-Shelter-System-Flow-Analysis.git"
 date: today
 date-format: long
-abstract: "As Toronto faces an extreme homelessness crisis, it is important to understand how much homelessness has increased in the city in 2023 compared to 2018. The paper uses data collected by OpenDataToronto to discover what population groups transition between shelters the most in 2018 and 2023. The paper concludes that more individuals were using an overnight service in 2023 compared to 2018."
+abstract: "As Toronto faces an extreme homelessness crisis, it is important to understand how much homelessness has increased in the city in 2023 compared to 2018. The paper uses data collected by OpenDataToronto [@OpenDataTO] to discover what population groups transition between shelters the most in 2018 and 2023. The paper concludes that more individuals were using an overnight service in 2023 compared to 2018."
 format: pdf
 toc: true
 number-sections: true
@@ -44,7 +44,7 @@ Toronto is under a major homelessness crisis. The city currently holds the highe
 
 To better understand the homelessness crisis and the number of people currently moving in and out of shelters, it is important to analyze the shelter system flow in Toronto. Specifically, my report compares data from 2018 and 2023 to see if there is a significant difference on the number of individuals who are actively homeless, became inactive, moved to housing and returned from housing. The report will analyze the data separated into eight groups: All populations, Chronic, Families, Youth, Single Adult, Refugees, Non-refugees, and Indigenous. Further discussion on different population groups are discussed in the Results section of the paper. 
 
-The shelter system flow data collected by Open Data Toronto [@OpenDataTO] gives an insight onto those who are experiencing homelessness and the status of Toronto's system [@OpenDataTO]. It provides information on people who enter and leave the shelter system every month. To gather data, the Shelter Management Information System (SMIS) is used. SMIS is used by overnight services such as emergency shelters, respites, hotel/motel programs, and warming centers [@OpenDataTO]. The data section consists of different types of data sources used as well as its cleaning process. The findings and trends are discussed in the Results section. Additional insights, measurement errors, and limitations are discussed in the Discussion section. The paper then wraps up findings and provides a summary in the Conclusion section. 
+The shelter system flow data collected by Open Data Toronto [@OpenDataTO] gives an insight onto those who are experiencing homelessness and the status of Toronto's system [@OpenDataTO]. It provides information on people who enter and leave the shelter system every month. To gather data, the Shelter Management Information System (SMIS) is used. SMIS is used by overnight services such as emergency shelters, respites, hotel/motel programs, and warming centers [@OpenDataTO]. The paper asks if there is an increase of individuals who are homeless in 2023 compared to 2018. The data section consists of different types of data sources used as well as its cleaning process. The findings and trends are discussed in the Results section. Additional insights, measurement errors, and limitations are discussed in the Discussion section. The paper then wraps up findings and provides a summary in the Conclusion section. 
 
 
 # Data
