@@ -135,13 +135,13 @@ combined_data <- rbind(became_inactive_data, became_inactive_data_23)
 ggplot(combined_data, aes(x = population_group, y = actively_homeless, fill = factor(year))) +
   geom_bar(stat = "identity", position = "dodge") +
   labs(x = "Population group", y = "Count of Actively Homeless", fill = "Year") +
-  theme_minimal()
+  theme_minimal() +  theme(legend.position = "bottom", axis.text.x = element_text(angle = 45, hjust = 1))
 
 # Create a stacked bar graph for Became Inactive Homeless in both years
 ggplot(combined_data, aes(x = population_group, y = became_inactive, fill = factor(year))) +
   geom_bar(stat = "identity", position = "dodge") +
   labs(x = "Population group", y = "Count of Inactively Homeless", fill = "Year") +
-  theme_minimal()
+  theme_minimal() +  theme(legend.position = "bottom", axis.text.x = element_text(angle = 45, hjust = 1))
 
 ```
 \newpage
@@ -213,13 +213,13 @@ combined_data <- rbind(returned_from_housing_data, returned_from_housing_data_23
 ggplot(combined_data, aes(x = population_group, y = moved_to_housing, fill = factor(year))) +
   geom_bar(stat = "identity", position = "dodge") +
   labs(x = "Population group", y = "Count of Moved to Housing", fill = "Year") +
-  theme_minimal()
+  theme_minimal() +  theme(legend.position = "bottom", axis.text.x = element_text(angle = 45, hjust = 1))
 
 # Create a stacked bar graph for Became Inactive Homeless in both years
 ggplot(combined_data, aes(x = population_group, y = returned_from_housing, fill = factor(year))) +
   geom_bar(stat = "identity", position = "dodge") +
   labs(x = "Population group", y = "Count of Returned from Housing", fill = "Year") +
-  theme_minimal()
+  theme_minimal() +  theme(legend.position = "bottom", axis.text.x = element_text(angle = 45, hjust = 1))
 
 ```
 
@@ -243,5 +243,3 @@ The discoveries found in the report provide an insight into the homelessness cri
 
 
 # References
-
-
