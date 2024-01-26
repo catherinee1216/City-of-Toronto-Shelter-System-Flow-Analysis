@@ -2,9 +2,7 @@
 
 ## Overview
 
-This repo provides students with a foundation for their own projects associated with *Telling Stories with Data*. You do not need every aspect for every paper and you should delete aspects that you do not need.
-
-To use this folder, click the green "Code" button", then "Download ZIP". Move the downloaded folder to where you want to work on your own computer, and then modify it to suit.
+The repository provides an analysis of the dataset Toronto’s Shelter System Flow from Open Data Toronto. The report goes over the number of individuals who are actively homeless, became inactive, moved to permanent housing, and returned from permanent housing in the years 2018 and 2023. An analysis is done to understand if there has been an increase of individuals experiencing homelessness in Toronto in 2023 compared to 2018. 
 
 ## File Structure
 
