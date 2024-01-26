@@ -1,26 +1,29 @@
 #### Preamble ####
-# Purpose: Downloads and saves the data from [...UPDATE THIS...]
-# Author: Rohan Alexander [...UPDATE THIS...]
-# Date: 11 February 2023 [...UPDATE THIS...]
-# Contact: rohan.alexander@utoronto.ca [...UPDATE THIS...]
+# Purpose: Downloads and saves the data from Open Data Toronto 
+# Author: Catherine Punnoose
+# Date: 24 Jjanuary 2024
+# Contact: catherine.punnoose@mail.utoronto.ca
 # License: MIT
-# Pre-requisites: [...UPDATE THIS...]
-# Any other information needed? [...UPDATE THIS...]
+# Pre-requisites: opendatatoronto, readr, tidyverse
 
 
 #### Workspace setup ####
 library(opendatatoronto)
 library(tidyverse)
-# [...UPDATE THIS...]
+library(readr)
 
 #### Download data ####
-# [...ADD CODE HERE TO DOWNLOAD...]
+# Read CSV file into a data frame
+shelter_system_flow_packages <- read_csv(here::here("outputs/data/toronto-shelter-system-flow.csv"))
+shelter_system_flow_resources <- shelter_system_flow_packages  %>% list_package_resources()
 
+raw_data_collect <- shelter_system_flow_resources[4,] %>% get_resource()
+
+#Cleaning up the data
+data_analysis <- clean_names(raw_data_collect)
 
 
 #### Save data ####
-# [...UPDATE THIS...]
-# change the_raw_data to whatever name you assigned when you downloaded it.
-write_csv(the_raw_data, "inputs/data/raw_data.csv") 
+write_csv(raw_data_collect, "outputs/data/toronto-shelter-system-flow.csv") 
 
          
